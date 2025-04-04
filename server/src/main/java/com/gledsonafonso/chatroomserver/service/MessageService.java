@@ -18,15 +18,14 @@ public class MessageService {
   public void processMessage() {
     try {
       // receives message sent by the client
-      var clientMessage = this.reader.readLine();
-      // log client message
-      System.out.println("Client says: " + clientMessage);
-      
-      // send response
-      if ("hello server".equals(clientMessage)) {
-        this.writer.println("hello client");
-      } else {
-        this.writer.println("unrecognised greeting");
+      String clientMessage;
+      while((clientMessage = this.reader.readLine()) != null) {
+        if ("exit".equals(clientMessage)) {
+          this.writer.println("goodbye");
+          break;
+        }
+
+        this.writer.println(clientMessage);
       }
     } catch (IOException e) {
       e.printStackTrace();

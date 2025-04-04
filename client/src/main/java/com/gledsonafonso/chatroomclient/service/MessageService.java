@@ -16,6 +16,8 @@ public class MessageService {
   }
 
   public String sendMessage(String message) throws IOException {
+    System.out.println("You: " + message);
+
     // sending message to server
     this.writer.println(message);
 

@@ -15,15 +15,6 @@ public class CommunicationService implements AutoCloseable {
     System.out.println("Waiting for client connection...");
     this.clientSocket = this.serverSocket.accept();
 
-    System.out.println(
-        String.format("""
-              Connection stabilished.
-                Host Address: %s
-                Host name: %s
-            """,
-            this.clientSocket.getInetAddress().getHostAddress(),
-            this.clientSocket.getInetAddress().getHostName()));
-
     this.messageService = new MessageService(this.clientSocket);
     this.messageService.processMessage();
   }

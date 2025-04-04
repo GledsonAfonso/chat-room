@@ -13,7 +13,13 @@ public class Application {
       connectionService.start(ip, port);
 
       var serverResponse = connectionService.sendMessage("hello server");
-      System.out.println("Server says: " + serverResponse);
+      System.out.println("Server: " + serverResponse);
+
+      serverResponse = connectionService.sendMessage("how are you doing?");
+      System.out.println("Server: " + serverResponse);
+
+      serverResponse = connectionService.sendMessage("exit");
+      System.out.println("Server: " + serverResponse);
     } catch (Exception exception) {
       System.out.println("Error: " + exception.getMessage());
     }
