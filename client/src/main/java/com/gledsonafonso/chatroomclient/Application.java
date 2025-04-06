@@ -1,5 +1,7 @@
 package com.gledsonafonso.chatroomclient;
 
+import java.util.Scanner;
+
 import com.gledsonafonso.chatroomclient.configuration.Environment;
 import com.gledsonafonso.chatroomclient.service.ConnectionService;
 
@@ -9,19 +11,21 @@ public class Application {
     var ip = environment.getProperty("ip");
     var port = Integer.parseInt(environment.getProperty("port"));
     
-    try(var connectionService = new ConnectionService()) {
+    try(
+      var connectionService = new ConnectionService();
+      var inputScanner = new Scanner(System.in);
+    ) {
       connectionService.start(ip, port);
 
-      var serverResponse = connectionService.sendMessage("hello server");
-      System.out.println("Server: " + serverResponse);
+      String input;
+      while(inputScanner.hasNext() && !(input = inputScanner.nextLine()).equals("exit")) {
+        var serverResponse = connectionService.sendMessage(input);
+        System.out.println(serverResponse);
+      }
 
-      serverResponse = connectionService.sendMessage("how are you doing?");
-      System.out.println("Server: " + serverResponse);
-
-      serverResponse = connectionService.sendMessage("exit");
-      System.out.println("Server: " + serverResponse);
+      System.out.println(connectionService.sendMessage("exit"));
     } catch (Exception exception) {
-      System.out.println("Error: " + exception.getMessage());
+      exception.printStackTrace();
     }
   }
 }

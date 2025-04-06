@@ -7,21 +7,19 @@ import java.net.Socket;
 public class CommunicationService implements AutoCloseable {
   private ServerSocket serverSocket;
   private Socket clientSocket;
-  private MessageService messageService;
 
   public void start(int port) throws IOException {
     this.serverSocket = new ServerSocket(port);
 
-    System.out.println("Waiting for client connection...");
-    this.clientSocket = this.serverSocket.accept();
+    System.out.println("Waiting for client connections...");
 
-    this.messageService = new MessageService(this.clientSocket);
-    this.messageService.processMessage();
+    while(true) {
+      new MessageService(this.serverSocket.accept()).start();
+    }
   }
 
   @Override
   public void close() throws Exception {
-    this.messageService.close();
     this.clientSocket.close();
     this.serverSocket.close();
 

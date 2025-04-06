@@ -1,0 +1,1 @@
+mvn clean install && java -jar ./target/chat-room-server-1.0.jar

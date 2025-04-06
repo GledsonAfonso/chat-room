@@ -7,26 +7,50 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class MessageService {
+  private String id;
   private BufferedReader reader;
   private PrintWriter writer;
 
   public MessageService(Socket socket) throws IOException {
     this.reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
     this.writer = new PrintWriter(socket.getOutputStream(), true);
+    this.id = this.getRemoteId();
+  }
+
+  public String getId() {
+    return this.id;
   }
 
   public String sendMessage(String message) throws IOException {
-    System.out.println("You: " + message);
-
     // sending message to server
     this.writer.println(message);
 
     // receiving response from server
-    return this.reader.readLine();
+    var serverResponse = this.reader.readLine();
+
+    if (serverResponse != null && serverResponse.contains(this.id)) {
+      return serverResponse.replace(this.id, "You");
+    }
+
+    return serverResponse;
   }
 
   public void close() throws IOException {
     this.reader.close();
     this.writer.close();
+  }
+
+  private String getRemoteId() throws IOException {
+    this.writer.println("get--remote-id");
+
+    var serverResponse = this.reader.readLine();
+    if(serverResponse != null && serverResponse.contains("remote-id--")) {
+      var remoteId = serverResponse.split("remote-id--")[1];
+      System.out.println("You're logged as: " + remoteId + "\n\n");
+      
+      return remoteId;
+    }
+
+    throw new RuntimeException("Couldn't set remote id.");
   }
 }
