@@ -41,7 +41,7 @@ public class MessageService extends Thread {
         break;
       }
 
-      this.writer.println(clientMessage);
+      this.writer.println(this.id + ": " + clientMessage);
     }
   }
 

@@ -29,7 +29,7 @@ public class MessageService {
     var serverResponse = this.reader.readLine();
 
     if (serverResponse != null && serverResponse.contains(this.id)) {
-      return serverResponse.replace(this.id, "You");
+      return "";
     }
 
     return serverResponse;
