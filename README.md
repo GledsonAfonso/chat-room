@@ -9,18 +9,18 @@
 
 ## Setting up the server
 
-First, open a terminal in the `server` dir. Compile it with:
+To start the chat room server, go to the `server` dir and run:
 
 ```bash
-mvn clean install
-```
-
-And then, run it with:
-
-```bash
-java -jar ./target/chat-room-server-1.0.jar
+./run.sh
 ```
 
 ## Setting up the client
 
-TBD
+With the server up and running, you can boot up any number of clients to chat. To do that, go to the `client` dir and run:
+
+```bash
+./run.sh
+```
+
+And that's it! You can start chatting now!
