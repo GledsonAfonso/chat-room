@@ -23,4 +23,9 @@ With the server up and running, you can boot up any number of clients to chat. T
 ./run.sh
 ```
 
-And that's it! You can start chatting now!
+And that's it!
+
+Example:
+
+![Screencast from 04-10-2025 03-55-02 AM](https://github.com/user-attachments/assets/258ac237-8c4a-4063-911f-3beb8d667095)
+
