@@ -1,7 +1,7 @@
 package com.gledsonafonso.chatroomserver;
 
 import com.gledsonafonso.chatroomserver.configuration.Environment;
-import com.gledsonafonso.chatroomserver.service.CommunicationService;
+import com.gledsonafonso.chatroomserver.service.connection.CommunicationService;
 
 public class Application {
   public static void main(String[] args) {

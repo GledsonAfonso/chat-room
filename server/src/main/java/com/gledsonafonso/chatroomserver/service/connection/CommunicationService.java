@@ -1,12 +1,12 @@
-package com.gledsonafonso.chatroomserver.service;
+package com.gledsonafonso.chatroomserver.service.connection;
 
 import java.io.IOException;
 import java.net.ServerSocket;
-import java.net.Socket;
+
+import com.gledsonafonso.chatroomserver.service.message.MessagePublisher;
 
 public class CommunicationService implements AutoCloseable {
   private ServerSocket serverSocket;
-  private Socket clientSocket;
 
   public void start(int port) throws IOException {
     this.serverSocket = new ServerSocket(port);
@@ -14,13 +14,15 @@ public class CommunicationService implements AutoCloseable {
     System.out.println("Waiting for client connections...");
 
     while(true) {
-      new MessageService(this.serverSocket.accept()).start();
+      var connection = new ClientConnection(this.serverSocket.accept());
+      MessagePublisher.addSubscriber(connection);
+
+      connection.start();
     }
   }
 
   @Override
   public void close() throws Exception {
-    this.clientSocket.close();
     this.serverSocket.close();
 
     System.out.println("Communication closed.");
