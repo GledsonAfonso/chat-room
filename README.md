@@ -15,7 +15,7 @@ To start the chat room server, go to the `server` dir and run:
 ./run.sh
 ```
 
-## Setting up the client
+## Setting up the client (terminal mode)
 
 With the server up and running, you can boot up any number of clients to chat. To do that, go to the `client` dir and run:
 
